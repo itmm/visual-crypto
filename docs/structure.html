@@ -1,0 +1,70 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<title>Used Files</title>
+<link rel="stylesheet" type="text/css" href="slides/slides.css"></head>
+<body>
+<h1>Used Files</h1>
+<div class="slides">
+<div>
+<div>
+<h1>Used Files</h1>
+</div>
+<ul><li>
+What files are used in this project
+</li></ul>
+</div>
+</div>
+<h2>Index HTML</h2>
+<div class="slides">
+<div>
+<div>
+<h2>Index HTML</h2>
+</div>
+<ul><li>
+Main entry to the app
+</li></ul>
+</div>
+<div><div>
+<code>
+<span class="macro">@Def(<span class="name">file: ../index.html</span>)</span><br/>
+<span class="in1"></span>&lt;!<span class="var">DOCTYPE</span> <span class="var">html</span>&gt;<br/>
+<span class="in1"></span>&lt;<span class="var">html</span> <span class="var">lang</span>=<span class="str">"en"</span>&gt;<br/>
+<span class="in2"></span><span class="macro">@put(<span class="name">head</span>)</span><br/>
+<span class="in2"></span>&lt;<span class="var">body</span>&gt;<br/>
+<span class="in3"></span><span class="macro">@Put(<span class="name">body</span>)</span><br/>
+<span class="in3"></span>&lt;<span class="var">script</span> <span class="var">src</span>=<span class="str">"vc.js"</span>&gt;&lt;/<span class="var">script</span>&gt;<br/>
+<span class="in2"></span>&lt;/<span class="var">body</span>&gt;<br/>
+<span class="in1"></span>&lt;/<span class="var">html</span>&gt;	<br/>
+<span class="macro">@End(<span class="name">file: ../index.html</span>)</span><br/>
+</code></div>
+</div>
+<div><div>
+<code>
+<span class="macro">@def(<span class="name">head</span>)</span><br/>
+<span class="in1"></span>&lt;<span class="var">head</span>&gt;<br/>
+<span class="in2"></span>&lt;<span class="var">meta</span> <span class="var">charset</span>=<span class="str">"utf-8"</span>&gt;<br/>
+<span class="in2"></span>&lt;<span class="var">title</span>&gt;<span class="var">title</span>&lt;/<span class="var">title</span>&gt;<br/>
+<span class="in2"></span>&lt;<span class="var">link</span> <span class="var">rel</span>=<span class="str">"stylesheet"</span> <span class="var">href</span>=<span class="str">"vc.css"</span>&gt;<br/>
+<span class="in1"></span>&lt;/<span class="var">head</span>&gt;<br/>
+<span class="macro">@end(<span class="name">head</span>)</span><br/>
+</code></div>
+</div>
+<div><div>
+<code>
+<span class="macro">@Def(<span class="name">file: ../vc.css</span>)</span><br/>
+<span class="in1"></span><span class="macro">@Put(<span class="name">css</span>)</span><br/>
+<span class="macro">@End(<span class="name">file: ../vc.css</span>)</span><br/>
+</code></div>
+</div>
+<div><div>
+<code>
+<span class="macro">@Def(<span class="name">file: ../vc.js</span>)</span><br/>
+<span class="in1"></span><span class="str">'use strict'</span>;<br/>
+<span class="in1"></span><span class="macro">@Put(<span class="name">js</span>)</span><br/>
+<span class="macro">@End(<span class="name">file: ../vc.js</span>)</span><br/>
+</code></div>
+</div>
+</body>
+</html>

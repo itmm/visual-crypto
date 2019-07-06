@@ -1,0 +1,125 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<title>Draw two images over each other</title>
+<link rel="stylesheet" type="text/css" href="slides/slides.css"></head>
+<body>
+<h1>Draw two images over each other</h1>
+<div class="slides">
+<div>
+<div>
+<h1>Draw two images over each other</h1>
+</div>
+</div>
+<div><div>
+<code>
+<span class="macro">@Def(<span class="name">body</span>)</span><br/>
+<span class="in1"></span>&lt;<span class="var">div</span>&gt;<br/>
+<span class="in2"></span>&lt;<span class="var">canvas</span> <span class="var">id</span>=<span class="str">"img-a"</span>&gt;&lt;/<span class="var">canvas</span>&gt;<br/>
+<span class="in2"></span>&lt;<span class="var">canvas</span> <span class="var">id</span>=<span class="str">"img-b"</span>&gt;&lt;/<span class="var">canvas</span>&gt;<br/>
+<span class="in1"></span>&lt;/<span class="var">div</span>&gt;&lt;<span class="var">div</span>&gt;<br/>
+<span class="in2"></span>&lt;<span class="var">img</span> <span class="var">id</span>=<span class="str">"ref"</span> <span class="var">src</span>=<span class="str">"ref.png"</span>&gt;<br/>
+<span class="in1"></span>&lt;/<span class="var">div</span>&gt;<br/>
+<span class="macro">@End(<span class="name">body</span>)</span><br/>
+</code></div>
+</div>
+<div><div>
+<code>
+<span class="macro">@Def(<span class="name">css</span>)</span><br/>
+<span class="in1"></span><span class="keyword">#img</span>-<span class="var">b</span> {<br/>
+<span class="in2"></span><span class="var">position</span>: <span class="var">relative</span>;<br/>
+<span class="in1"></span>}<br/>
+<span class="in1"></span><span class="keyword">#img</span>-<span class="var">a</span> {<br/>
+<span class="in2"></span><span class="var">position</span>: <span class="var">absolute</span>;<br/>
+<span class="in1"></span>}<br/>
+<span class="macro">@End(<span class="name">css</span>)</span><br/>
+</code></div>
+</div>
+<div><div>
+<code>
+<span class="macro">@Def(<span class="name">js</span>)</span><br/>
+<span class="in1"></span><span class="type">const</span> <span class="var">$</span> = <span class="var">xp</span> =&gt; {<br/>
+<span class="in2"></span><span class="keyword">return</span> <span class="var">document</span>.<span class="fn">getElementById</span>(<br/>
+<span class="in3"></span><span class="var">xp</span>.<span class="fn">substr</span>(<span class="num">1</span>)<br/>
+<span class="in2"></span>);<br/>
+<span class="in1"></span>};<br/>
+<span class="macro">@End(<span class="name">js</span>)</span><br/>
+</code></div>
+</div>
+<div><div>
+<code>
+<span class="macro">@Add(<span class="name">js</span>)</span><br/>
+<span class="in1"></span><span class="var">window</span>.<span class="fn">addEventListener</span>(<br/>
+<span class="in2"></span><span class="str">'load'</span>, () =&gt; {<br/>
+<span class="in3"></span><span class="macro">@Put(<span class="name">main</span>)</span>;<br/>
+<span class="in2"></span>}<br/>
+<span class="in1"></span>);<br/>
+<span class="macro">@End(<span class="name">js</span>)</span><br/>
+</code></div>
+</div>
+<div><div>
+<code>
+<span class="macro">@Def(<span class="name">main</span>)</span><br/>
+<span class="in1"></span><span class="type">const</span> <span class="var">$ref</span> = <span class="fn">$</span>(<span class="str">'#ref'</span>);<br/>
+<span class="in1"></span><span class="type">const</span> <span class="var">$img_a</span> = <span class="fn">$</span>(<span class="str">'#img-a'</span>);<br/>
+<span class="in1"></span><span class="type">const</span> <span class="var">$img_b</span> = <span class="fn">$</span>(<span class="str">'#img-b'</span>);<br/>
+<span class="macro">@End(<span class="name">main</span>)</span><br/>
+</code></div>
+</div>
+<div><div>
+<code>
+<span class="macro">@Add(<span class="name">main</span>)</span><br/>
+<span class="in1"></span><span class="type">const</span> <span class="var">ref_c</span> = <span class="var">document</span>.<span class="fn">createElement</span>(<span class="str">'canvas'</span>);<br/>
+<span class="in1"></span><span class="type">const</span> <span class="var">w</span> = <span class="var">ref</span>.<span class="var">width</span> + (<span class="var">ref</span>.<span class="var">width</span> % <span class="num">2</span>);<br/>
+<span class="in1"></span><span class="type">const</span> <span class="var">h</span> = <span class="var">ref</span>.<span class="var">height</span>;<br/>
+<span class="in1"></span><span class="var">ref_c</span>.<span class="var">width</span> = <span class="var">$img_a</span>.<span class="var">width</span> = <span class="var">$img_b</span>.<span class="var">width</span> = <span class="var">w</span>;<br/>
+<span class="in1"></span><span class="var">ref_c</span>.<span class="var">height</span> = <span class="var">$img_a</span>.<span class="var">height</span> = <span class="var">$img_b</span>.<span class="var">height</span> = <span class="var">h</span>;<br/>
+<span class="in1"></span><span class="var">ref_c</span>.<span class="fn">getContext</span>(<span class="str">'2d'</span>).<span class="fn">drawImage</span>(<span class="var">$ref</span>, <span class="num">0</span>, <span class="num">0</span>, <span class="var">w</span>, <span class="var">h</span>);<br/>
+<span class="in1"></span><span class="type">const</span> <span class="var">ref_d</span> = <span class="var">ref_c</span>.<span class="fn">getContext</span>(<span class="str">'2d'</span>).<span class="fn">getImageData</span>(<span class="num">0</span>, <span class="num">0</span>, <span class="var">w</span>, <span class="var">h</span>).<span class="var">data</span>;<br/>
+<span class="macro">@End(<span class="name">main</span>)</span><br/>
+</code></div>
+</div>
+<div><div>
+<code>
+<span class="macro">@Add(<span class="name">main</span>)</span><br/>
+<span class="in1"></span><span class="type">const</span> <span class="var">ctx_a</span> = <span class="var">$img_a</span>.<span class="fn">getContext</span>(<span class="str">'2d'</span>);<br/>
+<span class="in1"></span><span class="type">let</span> <span class="var">black_a</span> = <span class="var">ctx_a</span>.<span class="fn">createImageData</span>(<span class="num">1</span>,<span class="num">1</span>);<br/>
+<span class="in1"></span><span class="var">black_a</span>.<span class="var">data</span>[<span class="num">0</span>] = <span class="var">black_a</span>.<span class="var">data</span>[<span class="num">1</span>] = <span class="var">black_a</span>.<span class="var">data</span>[<span class="num">2</span>] = <span class="num">0</span>;<br/>
+<span class="in1"></span><span class="var">black_a</span>.<span class="var">data</span>[<span class="num">3</span>] = <span class="num">255</span>;<br/>
+<span class="in1"></span><span class="type">const</span> <span class="var">ctx_b</span> = <span class="var">$img_b</span>.<span class="fn">getContext</span>(<span class="str">'2d'</span>);<br/>
+<span class="in1"></span><span class="type">let</span> <span class="var">black_b</span> = <span class="var">ctx_b</span>.<span class="fn">createImageData</span>(<span class="num">1</span>,<span class="num">1</span>);<br/>
+<span class="in1"></span><span class="var">black_b</span>.<span class="var">data</span>[<span class="num">0</span>] = <span class="var">black_b</span>.<span class="var">data</span>[<span class="num">1</span>] = <span class="var">black_b</span>.<span class="var">data</span>[<span class="num">2</span>] = <span class="num">0</span>;<br/>
+<span class="in1"></span><span class="var">black_b</span>.<span class="var">data</span>[<span class="num">3</span>] = <span class="num">255</span>;<br/>
+<span class="in1"></span><span class="type">let</span> <span class="var">r</span> = <span class="num">0</span>;<br/>
+<span class="in1"></span><span class="keyword">for</span> (<span class="type">let</span> <span class="var">y</span> = <span class="num">0</span>; <span class="var">y</span> &lt; <span class="var">h</span>; ++<span class="var">y</span>) {<br/>
+<span class="in2"></span><span class="keyword">for</span> (<span class="type">let</span> <span class="var">x</span> = <span class="num">0</span>; <span class="var">x</span> &lt; <span class="var">w</span>; <span class="var">x</span> += <span class="num">2</span>) {<br/>
+<span class="in3"></span><span class="type">let</span> <span class="var">v</span> = <span class="num">0</span>;<br/>
+<span class="in3"></span><span class="keyword">for</span> (<span class="type">let</span> <span class="var">i</span> = <span class="num">0</span>; <span class="var">i</span> &lt; <span class="num">2</span>; ++<span class="var">i</span>) {<br/>
+<span class="in4"></span><span class="keyword">for</span> (<span class="type">let</span> <span class="var">j</span> = <span class="num">0</span>; <span class="var">j</span> &lt; <span class="num">3</span>; ++<span class="var">j</span>) {<br/>
+<span class="in5"></span><span class="var">v</span> += <span class="var">ref_d</span>[<span class="var">r</span>++];<br/>
+<span class="in4"></span>}<br/>
+<span class="in4"></span>++<span class="var">r</span>;<br/>
+<span class="in3"></span>}<br/>
+<span class="in3"></span><span class="keyword">if</span> (<span class="type">Math</span>.<span class="fn">random</span>() &gt; <span class="num">0</span>.<span class="num">5</span>) {<br/>
+<span class="in4"></span><span class="var">ctx_a</span>.<span class="fn">putImageData</span>(<span class="var">black_a</span>, <span class="var">x</span>, <span class="var">y</span>);<br/>
+<span class="in4"></span><span class="keyword">if</span> (<span class="var">v</span> &lt; <span class="num">255</span> + <span class="num">128</span>) {<br/>
+<span class="in5"></span><span class="var">ctx_b</span>.<span class="fn">putImageData</span>(<span class="var">black_b</span>, <span class="var">x</span> + <span class="num">1</span>, <span class="var">y</span>)<br/>
+<span class="in4"></span>} <span class="keyword">else</span> {<br/>
+<span class="in5"></span><span class="var">ctx_b</span>.<span class="fn">putImageData</span>(<span class="var">black_b</span>, <span class="var">x</span>, <span class="var">y</span>)<br/>
+<span class="in4"></span>}<br/>
+<span class="in3"></span>} <span class="keyword">else</span> {<br/>
+<span class="in4"></span><span class="var">ctx_a</span>.<span class="fn">putImageData</span>(<span class="var">black_a</span>, <span class="var">x</span> + <span class="num">1</span>, <span class="var">y</span>);<br/>
+<span class="in4"></span><span class="keyword">if</span> (<span class="var">v</span> &lt; <span class="num">255</span> + <span class="num">128</span>) {<br/>
+<span class="in5"></span><span class="var">ctx_b</span>.<span class="fn">putImageData</span>(<span class="var">black_b</span>, <span class="var">x</span>, <span class="var">y</span>)<br/>
+<span class="in4"></span>} <span class="keyword">else</span> {<br/>
+<span class="in5"></span><span class="var">ctx_b</span>.<span class="fn">putImageData</span>(<span class="var">black_b</span>, <span class="var">x</span> + <span class="num">1</span>, <span class="var">y</span>)<br/>
+<span class="in4"></span>}<br/>
+<span class="in3"></span>}<br/>
+<span class="in2"></span>}<br/>
+<span class="in1"></span>}<br/>
+<span class="macro">@End(<span class="name">main</span>)</span><br/>
+</code></div>
+</div>
+</body>
+</html>
