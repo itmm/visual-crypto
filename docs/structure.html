@@ -39,17 +39,28 @@ Main entry to the app
 <span class="in1"></span>&lt;/<span class="var">html</span>&gt;	<br/>
 <span class="macro">@End(<span class="name">file: ../index.html</span>)</span><br/>
 </code></div>
+<ul><li>
+HTML file consists for a head an a body
+</li><li>
+The JavaScript is the last part included, so its parsing does not  slow down the rendering
+</li></ul>
 </div>
 <div><div>
 <code>
 <span class="macro">@def(<span class="name">head</span>)</span><br/>
 <span class="in1"></span>&lt;<span class="var">head</span>&gt;<br/>
 <span class="in2"></span>&lt;<span class="var">meta</span> <span class="var">charset</span>=<span class="str">"utf-8"</span>&gt;<br/>
-<span class="in2"></span>&lt;<span class="var">title</span>&gt;<span class="var">title</span>&lt;/<span class="var">title</span>&gt;<br/>
-<span class="in2"></span>&lt;<span class="var">link</span> <span class="var">rel</span>=<span class="str">"stylesheet"</span> <span class="var">href</span>=<span class="str">"vc.css"</span>&gt;<br/>
+<span class="in2"></span>&lt;<span class="var">title</span>&gt;<span class="type">Visual</span> <span class="type">Cryptography</span>&lt;/<span class="var">title</span>&gt;<br/>
+<span class="in2"></span>&lt;<span class="var">link</span> <span class="var">rel</span>=<span class="str">"stylesheet"</span><br/>
+<span class="in3"></span><span class="var">href</span>=<span class="str">"vc.css"</span>&gt;<br/>
 <span class="in1"></span>&lt;/<span class="var">head</span>&gt;<br/>
 <span class="macro">@end(<span class="name">head</span>)</span><br/>
 </code></div>
+<ul><li>
+The specifies a character set and a title
+</li><li>
+Also it includes the CSS file
+</li></ul>
 </div>
 <div><div>
 <code>
@@ -57,6 +68,9 @@ Main entry to the app
 <span class="in1"></span><span class="macro">@Put(<span class="name">css</span>)</span><br/>
 <span class="macro">@End(<span class="name">file: ../vc.css</span>)</span><br/>
 </code></div>
+<ul><li>
+Global fragment for CSS entries
+</li></ul>
 </div>
 <div><div>
 <code>
@@ -65,6 +79,9 @@ Main entry to the app
 <span class="in1"></span><span class="macro">@Put(<span class="name">js</span>)</span><br/>
 <span class="macro">@End(<span class="name">file: ../vc.js</span>)</span><br/>
 </code></div>
+<ul><li>
+Global fragment for JavaScript entries
+</li></ul>
 </div>
 </body>
 </html>

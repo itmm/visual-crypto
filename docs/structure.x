@@ -16,22 +16,29 @@
 	</html>	
 @End(file: ../index.html)
 ```
+* HTML file consists for a head an a body
+* The JavaScript is the last part included, so its parsing does not
+  slow down the rendering
 
 ```
 @def(head)
 	<head>
 		<meta charset="utf-8">
-		<title>title</title>
-		<link rel="stylesheet" href="vc.css">
+		<title>Visual Cryptography</title>
+		<link rel="stylesheet"
+			href="vc.css">
 	</head>
 @end(head)
 ```
+* The specifies a character set and a title
+* Also it includes the CSS file
 
 ```
 @Def(file: ../vc.css)
 	@Put(css)
 @End(file: ../vc.css)
 ```
+* Global fragment for CSS entries
 
 ```
 @Def(file: ../vc.js)
@@ -39,3 +46,5 @@
 	@Put(js)
 @End(file: ../vc.js)
 ```
+* Global fragment for JavaScript entries
+
