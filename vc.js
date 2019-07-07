@@ -78,6 +78,24 @@
 ;
 		}
 	}
+
+	$('#overlay').addEventListener(
+		'click',
+		evt => {
+			evt.preventDefault();
+			$img_a.className = 'overlay';
+			$img_b.className = 'overlay';
+		}
+	);
+
+	$('#separate').addEventListener(
+		'click',
+		evt => {
+			evt.preventDefault();
+			$img_a.className = 'separate';
+			$img_b.className = 'separate';
+		}
+	);
 ;
 		}
 	);

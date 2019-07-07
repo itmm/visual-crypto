@@ -1,9 +1,17 @@
 
 	
-	#img-b {
+	#img-a, div {
 		position: relative;
 	}
-	#img-a {
+	#img-b {
 		position: absolute;
+		transition: left 2s ease-in-out;
+	}
+	#img-b.overlay {
+		left: 0px;
+	}
+
+	#img-b.separate {
+		left: 420px;
 	}
 

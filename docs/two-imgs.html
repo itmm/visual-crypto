@@ -19,8 +19,10 @@ The images will be automatically generated from a reference image
 <code>
 <span class="macro">@Def(<span class="name">body</span>)</span><br/>
 <span class="in1"></span>&lt;<span class="var">div</span>&gt;<br/>
-<span class="in2"></span>&lt;<span class="var">canvas</span> <span class="var">id</span>=<span class="str">"img-a"</span>&gt;&lt;/<span class="var">canvas</span>&gt;<br/>
-<span class="in2"></span>&lt;<span class="var">canvas</span> <span class="var">id</span>=<span class="str">"img-b"</span>&gt;&lt;/<span class="var">canvas</span>&gt;<br/>
+<span class="in2"></span>&lt;<span class="var">canvas</span> <span class="var">id</span>=<span class="str">"img-a"</span><br/>
+<span class="in3"></span><span class="keyword">class</span>=<span class="str">"separate"</span><br/>
+<span class="in2"></span>&gt;&lt;/<span class="var">canvas</span>&gt;&lt;<span class="var">canvas</span> <span class="var">id</span>=<span class="str">"img-b"</span><br/>
+<span class="in3"></span><span class="keyword">class</span>=<span class="str">"separate"</span>&gt;&lt;/<span class="var">canvas</span>&gt;<br/>
 <span class="in1"></span>&lt;/<span class="var">div</span>&gt;&lt;<span class="var">div</span>&gt;<br/>
 <span class="in2"></span>&lt;<span class="var">img</span> <span class="var">id</span>=<span class="str">"ref"</span> <span class="var">src</span>=<span class="str">"ref.png"</span>&gt;<br/>
 <span class="in1"></span>&lt;/<span class="var">div</span>&gt;<br/>
@@ -33,16 +35,32 @@ Body contains two diffs: one for the generated images and one for  the reference
 <div><div>
 <code>
 <span class="macro">@Def(<span class="name">css</span>)</span><br/>
-<span class="in1"></span><span class="keyword">#img</span>-<span class="var">b</span> {<br/>
+<span class="in1"></span><span class="keyword">#img</span>-<span class="var">a</span>, <span class="var">div</span> {<br/>
 <span class="in2"></span><span class="var">position</span>: <span class="var">relative</span>;<br/>
 <span class="in1"></span>}<br/>
-<span class="in1"></span><span class="keyword">#img</span>-<span class="var">a</span> {<br/>
+<span class="in1"></span><span class="keyword">#img</span>-<span class="var">b</span> {<br/>
 <span class="in2"></span><span class="var">position</span>: <span class="var">absolute</span>;<br/>
+<span class="in2"></span><span class="var">transition</span>: <span class="var">left</span> <span class="num">2s</span> <span class="var">ease</span>-<span class="keyword">in</span>-<span class="var">out</span>;<br/>
+<span class="in1"></span>}<br/>
+<span class="in1"></span><span class="keyword">#img</span>-<span class="var">b</span>.<span class="var">overlay</span> {<br/>
+<span class="in2"></span><span class="var">left</span>: <span class="num">0px</span>;<br/>
 <span class="in1"></span>}<br/>
 <span class="macro">@End(<span class="name">css</span>)</span><br/>
 </code></div>
 <ul><li>
 First hard-code positions to force an overlay
+</li></ul>
+</div>
+<div><div>
+<code>
+<span class="macro">@Add(<span class="name">css</span>)</span><br/>
+<span class="in1"></span><span class="keyword">#img</span>-<span class="var">b</span>.<span class="var">separate</span> {<br/>
+<span class="in2"></span><span class="var">left</span>: <span class="num">420px</span>;<br/>
+<span class="in1"></span>}<br/>
+<span class="macro">@End(<span class="name">css</span>)</span><br/>
+</code></div>
+<ul><li>
+Second hard-code positions to force separation overlay
 </li></ul>
 </div>
 <div><div>
@@ -239,6 +257,55 @@ Depending of the reference pixel value put the black pixel in the same  or diffe
 <ul><li>
 Choose randomly where to put the pixel in the first image
 </li></ul>
+</div>
+</div>
+<h2>Move Images</h2>
+<div class="slides">
+<div>
+<div>
+<h2>Move Images</h2>
+</div>
+<ul><li>
+Add buttons to move the images away from each other
+</li></ul>
+</div>
+<div><div>
+<code>
+<span class="macro">@Add(<span class="name">body</span>)</span><br/>
+<span class="in1"></span>&lt;<span class="var">form</span>&gt;<br/>
+<span class="in1"></span>&lt;<span class="var">button</span> <span class="var">id</span>=<span class="str">"overlay"</span>&gt;<span class="type">Overlay</span>&lt;/<span class="var">button</span>&gt;<br/>
+<span class="in1"></span>&lt;<span class="var">button</span> <span class="var">id</span>=<span class="str">"separate"</span>&gt;<span class="type">Separate</span>&lt;/<span class="var">button</span>&gt;<br/>
+<span class="in1"></span>&lt;/<span class="var">form</span>&gt;<br/>
+<span class="macro">@End(<span class="name">body</span>)</span><br/>
+</code></div>
+</div>
+<div><div>
+<code>
+<span class="macro">@Add(<span class="name">main</span>)</span><br/>
+<span class="in1"></span><span class="fn">$</span>(<span class="str">'#overlay'</span>).<span class="fn">addEventListener</span>(<br/>
+<span class="in2"></span><span class="str">'click'</span>,<br/>
+<span class="in2"></span><span class="var">evt</span> =&gt; {<br/>
+<span class="in3"></span><span class="var">evt</span>.<span class="fn">preventDefault</span>();<br/>
+<span class="in3"></span><span class="var">$img_a</span>.<span class="var">className</span> = <span class="str">'overlay'</span>;<br/>
+<span class="in3"></span><span class="var">$img_b</span>.<span class="var">className</span> = <span class="str">'overlay'</span>;<br/>
+<span class="in2"></span>}<br/>
+<span class="in1"></span>);<br/>
+<span class="macro">@end(<span class="name">main</span>)</span><br/>
+</code></div>
+</div>
+<div><div>
+<code>
+<span class="macro">@Add(<span class="name">main</span>)</span><br/>
+<span class="in1"></span><span class="fn">$</span>(<span class="str">'#separate'</span>).<span class="fn">addEventListener</span>(<br/>
+<span class="in2"></span><span class="str">'click'</span>,<br/>
+<span class="in2"></span><span class="var">evt</span> =&gt; {<br/>
+<span class="in3"></span><span class="var">evt</span>.<span class="fn">preventDefault</span>();<br/>
+<span class="in3"></span><span class="var">$img_a</span>.<span class="var">className</span> = <span class="str">'separate'</span>;<br/>
+<span class="in3"></span><span class="var">$img_b</span>.<span class="var">className</span> = <span class="str">'separate'</span>;<br/>
+<span class="in2"></span>}<br/>
+<span class="in1"></span>);<br/>
+<span class="macro">@end(<span class="name">main</span>)</span><br/>
+</code></div>
 </div>
 </body>
 </html>

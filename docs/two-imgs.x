@@ -4,8 +4,10 @@
 ```
 @Def(body)
 	<div>
-		<canvas id="img-a"></canvas>
-		<canvas id="img-b"></canvas>
+		<canvas id="img-a"
+			class="separate"
+		></canvas><canvas id="img-b"
+			class="separate"></canvas>
 	</div><div>
 		<img id="ref" src="ref.png">
 	</div>
@@ -16,15 +18,28 @@
 
 ```
 @Def(css)
-	#img-b {
+	#img-a, div {
 		position: relative;
 	}
-	#img-a {
+	#img-b {
 		position: absolute;
+		transition: left 2s ease-in-out;
+	}
+	#img-b.overlay {
+		left: 0px;
 	}
 @End(css)
 ```
 * First hard-code positions to force an overlay
+
+```
+@Add(css)
+	#img-b.separate {
+		left: 420px;
+	}
+@End(css)
+```
+* Second hard-code positions to force separation overlay
 
 ```
 @Def(js)
@@ -179,4 +194,42 @@
 @end(draw)
 ```
 * Choose randomly where to put the pixel in the first image
+
+## Move Images
+* Add buttons to move the images away from each other
+
+```
+@Add(body)
+	<form>
+	<button id="overlay">Overlay</button>
+	<button id="separate">Separate</button>
+	</form>
+@End(body)
+```
+
+```
+@Add(main)
+	$('#overlay').addEventListener(
+		'click',
+		evt => {
+			evt.preventDefault();
+			$img_a.className = 'overlay';
+			$img_b.className = 'overlay';
+		}
+	);
+@end(main)
+```
+
+```
+@Add(main)
+	$('#separate').addEventListener(
+		'click',
+		evt => {
+			evt.preventDefault();
+			$img_a.className = 'separate';
+			$img_b.className = 'separate';
+		}
+	);
+@end(main)
+```
 
