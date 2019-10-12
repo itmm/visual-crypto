@@ -3,11 +3,11 @@
   Visual Cryptography
 
 ```
-@inc(structure.x)
+@inc(structure.md)
 ```
 * File structure of the project
 
 ```
-@inc(two-imgs.x)
+@inc(two-imgs.md)
 ```
 * Draw two images over each other
