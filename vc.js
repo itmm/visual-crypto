@@ -46,9 +46,28 @@
 	const ctx_b = $img_b.getContext('2d');
 	let black_b = getBlack(ctx_b);
 
-	let r = 0;
-	for (let y = 0; y < h; ++y) {
-		for (let x = 0; x < w; x += 2) {
+	console.log('start');
+	const gcd = (a, b) => {
+		while (b != 0) {
+			const t = a % b;
+			a = b; b = t;
+		}
+		return a;
+	};
+
+	let x = 0;
+	let y = 0;
+	let m = w * h;
+	let c = m;
+	let d = Math.trunc(m/7);
+	console.log(d);
+	while (gcd(d, m) != 1) { console.log(d, m, gcd(d, m)); ++d; }
+
+	console.log(m, d);
+
+	const draw = () => {
+		for (let k = 0; c > 0 && k < 100; ++k) {
+			let r = (y * w + x) * 4;
 			
 	let v = 0;
 	for (let i = 0; i < 2; ++i) {
@@ -76,8 +95,20 @@
 		putPixel(x + 1, x, y, v);
 	}
 ;
+			--c;
+			let i = y * w + x;
+			i = i + d;
+			while (i > m) { i -= m; }
+
+			y = Math.floor(i / w);
+			x = i - w * y;
 		}
-	}
+		if (c > 0) {
+			setTimeout(draw, 0);
+		}
+	};
+	draw();
+
 
 	$('#overlay').addEventListener(
 		'click',
@@ -85,6 +116,8 @@
 			evt.preventDefault();
 			$img_a.className = 'overlay';
 			$img_b.className = 'overlay';
+			$img_b.style.removeProperty('left');
+			$img_b.style.removeProperty('top');
 		}
 	);
 
@@ -94,9 +127,35 @@
 			evt.preventDefault();
 			$img_a.className = 'separate';
 			$img_b.className = 'separate';
+			$img_b.style.removeProperty('left');
+			$img_b.style.removeProperty('top');
 		}
 	);
+ {
+	
+	let mouse_down = false;
+	let x = 0;
+	let y = 0;
+
+	$img_b.addEventListener('mousedown', function (e) { 
+		mouse_down = true; 
+		x = $img_b.offsetLeft - e.clientX; 
+		y = $img_b.offsetTop - e.clientY; 
+		$img_b.className = '';
+		$img_b.style.left = e.clientX + x + 'px'; 
+		$img_b.style.top = e.clientY + y + 'px'; 
+	}, true); 
+	$img_b.addEventListener('mouseup', function (e) { 
+		mouse_down = false; 
+	}, true); 
+	$img_b.addEventListener('mousemove', function (e) { 
+		if (mouse_down) { 
+			$img_b.style.left = e.clientX + x + 'px'; 
+			$img_b.style.top = e.clientY + y + 'px'; 
+		} 
+	}, true); 
 ;
+} ;
 		}
 	);
 

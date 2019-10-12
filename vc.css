@@ -5,13 +5,14 @@
 	}
 	#img-b {
 		position: absolute;
-		transition: left 2s ease-in-out;
 	}
 	#img-b.overlay {
 		left: 0px;
+		transition: left 2s ease-in-out;
 	}
 
 	#img-b.separate {
 		left: 420px;
+		transition: left 2s ease-in-out;
 	}
 

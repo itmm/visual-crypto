@@ -1,8 +1,8 @@
 # Used Files
-* What files are used in this project
+* what files are used in this project
 
 ## Index HTML
-* Main entry to the app
+* main entry to the app
 
 ```
 @Def(file: ../index.html)
@@ -17,7 +17,7 @@
 @End(file: ../index.html)
 ```
 * HTML file consists for a head an a body
-* The JavaScript is the last part included, so its parsing does not
+* the JavaScript is the last part included, so its parsing does not
   slow down the rendering
 
 ```
@@ -30,15 +30,15 @@
 	</head>
 @end(head)
 ```
-* The specifies a character set and a title
-* Also it includes the CSS file
+* the specifies a character set and a title
+* also it includes the CSS file
 
 ```
 @Def(file: ../vc.css)
 	@Put(css)
 @End(file: ../vc.css)
 ```
-* Global fragment for CSS entries
+* global fragment for CSS entries
 
 ```
 @Def(file: ../vc.js)
@@ -46,5 +46,5 @@
 	@Put(js)
 @End(file: ../vc.js)
 ```
-* Global fragment for JavaScript entries
+* global fragment for JavaScript entries
 

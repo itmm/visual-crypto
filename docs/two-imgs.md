@@ -1,5 +1,5 @@
 # Draw two images over each other
-* The images will be automatically generated from a reference image
+* the images will be automatically generated from a reference image
 
 ```
 @Def(body)
@@ -13,7 +13,7 @@
 	</div>
 @End(body)
 ```
-* Body contains two diffs: one for the generated images and one for
+* body contains two diffs: one for the generated images and one for
   the reference image
 
 ```
@@ -23,10 +23,10 @@
 	}
 	#img-b {
 		position: absolute;
-		transition: left 2s ease-in-out;
 	}
 	#img-b.overlay {
 		left: 0px;
+		transition: left 2s ease-in-out;
 	}
 @End(css)
 ```
@@ -36,10 +36,11 @@
 @Add(css)
 	#img-b.separate {
 		left: 420px;
+		transition: left 2s ease-in-out;
 	}
 @End(css)
 ```
-* Second hard-code positions to force separation overlay
+* second hard-code positions to force separation overlay
 
 ```
 @Def(js)
@@ -50,8 +51,8 @@
 	};
 @End(js)
 ```
-* Helper function to get DOM elements
-* Similar to jQuery's method but only for IDs
+* helper function to get DOM elements
+* similar to jQuery's method but only for IDs
 
 ```
 @Add(js)
@@ -62,7 +63,7 @@
 	);
 @End(js)
 ```
-* Perform the JavaScript stuff after the page is fully loaded
+* perform the JavaScript stuff after the page is fully loaded
 
 ```
 @Def(main)
@@ -71,7 +72,7 @@
 	const $img_b = $('#img-b');
 @End(main)
 ```
-* Get DOM elements
+* get DOM elements
 
 ```
 @Add(main)
@@ -79,8 +80,8 @@
 	const h = ref.height;
 @End(main)
 ```
-* Reference Image specifies the size of the images
-* Width must be even, so it may be padded by a pixel
+* reference Image specifies the size of the images
+* width must be even, so it may be padded by a pixel
 
 ```
 @Add(main)
@@ -92,9 +93,9 @@
 		$img_b.height = h;
 @End(main)
 ```
-* Generate a hidden canvas to contain the reference image
-* It is set to the correct size
-* And the other canvases (that contain the generated images) are also
+* generate a hidden canvas to contain the reference image
+* it is set to the correct size
+* and the other canvases (that contain the generated images) are also
   set to their proper size
 
 ```
@@ -104,7 +105,7 @@
 	ref_ctx.drawImage($ref, 0, 0, w, h);
 @End(main)
 ```
-* Reference image is drawn in the hidden canvas
+* reference image is drawn in the hidden canvas
 
 ```
 @Add(main)
@@ -113,7 +114,7 @@
 	const ref_d = ref_id.data;
 @End(main)
 ```
-* The pixel array of the hidden canvas is used to generate the two
+* the pixel array of the hidden canvas is used to generate the two
   randomized images
 
 ```
@@ -128,7 +129,7 @@
 	};
 @End(main)
 ```
-* Create one black pixel for a canvas object
+* create one black pixel for a canvas object
 
 ```
 @Add(main)
@@ -138,19 +139,50 @@
 	let black_b = getBlack(ctx_b);
 @End(main)
 ```
-* Create black pixels for both canvases
+* create black pixels for both canvases
 
 ```
 @Add(main)
-	let r = 0;
-	for (let y = 0; y < h; ++y) {
-		for (let x = 0; x < w; x += 2) {
-			@put(draw);
+	console.log('start');
+	const gcd = (a, b) => {
+		while (b != 0) {
+			const t = a % b;
+			a = b; b = t;
 		}
-	}
+		return a;
+	};
+
+	let x = 0;
+	let y = 0;
+	let m = w * h;
+	let c = m;
+	let d = Math.trunc(m/7);
+	console.log(d);
+	while (gcd(d, m) != 1) { console.log(d, m, gcd(d, m)); ++d; }
+
+	console.log(m, d);
+
+	const draw = () => {
+		for (let k = 0; c > 0 && k < 100; ++k) {
+			let r = (y * w + x) * 4;
+			@put(draw);
+			--c;
+			let i = y * w + x;
+			i = i + d;
+			while (i > m) { i -= m; }
+
+			y = Math.floor(i / w);
+			x = i - w * y;
+		}
+		if (c > 0) {
+			setTimeout(draw, 0);
+		}
+	};
+	draw();
+
 @End(main)
 ```
-* Iterate over each pixel pair
+* iterate over each pixel pair
 
 ```
 @def(draw)
@@ -164,8 +196,8 @@
 	}
 @end(draw)
 ```
-* Sum over pixel pair in reference image
-* The sums of a pixel are weighted by their alpha component
+* sum over pixel pair in reference image
+* the sums of a pixel are weighted by their alpha component
 
 ```
 @add(draw)
@@ -181,7 +213,7 @@
 	};
 @end(draw)
 ```
-* Depending of the reference pixel value put the black pixel in the same
+* depending of the reference pixel value put the black pixel in the same
   or different positions in the two images
 
 ```
@@ -193,19 +225,21 @@
 	}
 @end(draw)
 ```
-* Choose randomly where to put the pixel in the first image
+* choose randomly where to put the pixel in the first image
 
 ## Move Images
-* Add buttons to move the images away from each other
+* add buttons to move the images away from each other
 
 ```
 @Add(body)
 	<form>
 	<button id="overlay">Overlay</button>
-	<button id="separate">Separate</button>
+	<button
+		id="separate">Separate</button>
 	</form>
 @End(body)
 ```
+* two buttons for fixed positions
 
 ```
 @Add(main)
@@ -215,10 +249,13 @@
 			evt.preventDefault();
 			$img_a.className = 'overlay';
 			$img_b.className = 'overlay';
+			$img_b.style.removeProperty('left');
+			$img_b.style.removeProperty('top');
 		}
 	);
 @end(main)
 ```
+* move images into overlay position
 
 ```
 @Add(main)
@@ -228,8 +265,53 @@
 			evt.preventDefault();
 			$img_a.className = 'separate';
 			$img_b.className = 'separate';
+			$img_b.style.removeProperty('left');
+			$img_b.style.removeProperty('top');
 		}
 	);
 @end(main)
 ```
+* move images in separate positions
 
+## Move elements
+* move the images with the mouse
+
+```
+@Add(main) {
+	@put(mouse move);
+} @End(main)
+```
+* put all moving parts in its own scope
+* so that variables are local and do not pollute the global namespace
+
+```
+@def(mouse move)
+	let mouse_down = false;
+	let x = 0;
+	let y = 0;
+@end(mouse move)
+```
+* keep track if the mouse button is pressed
+* and the origin of a mouse move
+
+```
+@add(mouse move)
+	$img_b.addEventListener('mousedown', function (e) { 
+		mouse_down = true; 
+		x = $img_b.offsetLeft - e.clientX; 
+		y = $img_b.offsetTop - e.clientY; 
+		$img_b.className = '';
+		$img_b.style.left = e.clientX + x + 'px'; 
+		$img_b.style.top = e.clientY + y + 'px'; 
+	}, true); 
+	$img_b.addEventListener('mouseup', function (e) { 
+		mouse_down = false; 
+	}, true); 
+	$img_b.addEventListener('mousemove', function (e) { 
+		if (mouse_down) { 
+			$img_b.style.left = e.clientX + x + 'px'; 
+			$img_b.style.top = e.clientY + y + 'px'; 
+		} 
+	}, true); 
+@end(mouse move)
+```
