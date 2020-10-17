@@ -18,7 +18,7 @@
 
 ```
 @Def(css)
-	img {
+	img, canvas {
 		-ms-interpolation-mode: nearest-neighbor;
 		image-rendering: -webkit-optimize-contrast;
 		image-rendering: -moz-crisp-edges;
