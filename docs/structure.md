@@ -25,6 +25,7 @@
 	<head>
 		<meta charset="utf-8">
 		<title>Visual Cryptography</title>
+		<meta name="viewport" content="user-scalable=no, initial-scale=1.0, maximum-scale=1.0"/>
 		<link rel="stylesheet"
 			href="vc.css">
 	</head>
