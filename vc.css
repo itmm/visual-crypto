@@ -1,5 +1,12 @@
 
 	
+	img {
+		-ms-interpolation-mode: nearest-neighbor;
+		image-rendering: -webkit-optimize-contrast;
+		image-rendering: -moz-crisp-edges;
+		image-rendering: -o-pixelated;
+		image-rendering: pixelated;
+	}
 	#img-a, div {
 		position: relative;
 	}
@@ -8,11 +15,11 @@
 	}
 	#img-b.overlay {
 		left: 0px;
-		transition: left 2s ease-in-out;
+		transition: left 2s linear;
 	}
 
 	#img-b.separate {
 		left: 420px;
-		transition: left 2s ease-in-out;
+		transition: left 2s linear;
 	}
 

@@ -14,6 +14,8 @@
 	const $img_a = $('#img-a');
 	const $img_b = $('#img-b');
 
+	const refresh = () => {
+		
 	const w = ref.width + (ref.width % 2);
 	const h = ref.height;
 
@@ -46,7 +48,6 @@
 	const ctx_b = $img_b.getContext('2d');
 	let black_b = getBlack(ctx_b);
 
-	console.log('start');
 	const gcd = (a, b) => {
 		while (b != 0) {
 			const t = a % b;
@@ -60,13 +61,10 @@
 	let m = w * h;
 	let c = m;
 	let d = Math.trunc(m/7);
-	console.log(d);
-	while (gcd(d, m) != 1) { console.log(d, m, gcd(d, m)); ++d; }
-
-	console.log(m, d);
+	while (gcd(d, m) != 1) { ++d; }
 
 	const draw = () => {
-		for (let k = 0; c > 0 && k < 100; ++k) {
+		for (let k = 0; c > 0 && k < 345; ++k) {
 			let r = (y * w + x) * 4;
 			
 	let v = 0;
@@ -109,6 +107,9 @@
 	};
 	draw();
 
+
+	};
+	refresh();
 
 	$('#overlay').addEventListener(
 		'click',
@@ -155,6 +156,13 @@
 		} 
 	}, true); 
 ;
+}  {
+	$('#upload').addEventListener('change', function () {
+		if (this.files && this.files[0]) {
+			$ref.onload = refresh;
+			$ref.src = URL.createObjectURL(this.files[0]);
+		}
+	});
 } ;
 		}
 	);

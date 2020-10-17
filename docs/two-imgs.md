@@ -18,6 +18,13 @@
 
 ```
 @Def(css)
+	img {
+		-ms-interpolation-mode: nearest-neighbor;
+		image-rendering: -webkit-optimize-contrast;
+		image-rendering: -moz-crisp-edges;
+		image-rendering: -o-pixelated;
+		image-rendering: pixelated;
+	}
 	#img-a, div {
 		position: relative;
 	}
@@ -26,7 +33,7 @@
 	}
 	#img-b.overlay {
 		left: 0px;
-		transition: left 2s ease-in-out;
+		transition: left 2s linear;
 	}
 @End(css)
 ```
@@ -36,7 +43,7 @@
 @Add(css)
 	#img-b.separate {
 		left: 420px;
-		transition: left 2s ease-in-out;
+		transition: left 2s linear;
 	}
 @End(css)
 ```
@@ -76,22 +83,31 @@
 
 ```
 @Add(main)
+	const refresh = () => {
+		@Put(refresh)
+	};
+	refresh();
+@End(main)
+```
+
+```
+@Def(refresh)
 	const w = ref.width + (ref.width % 2);
 	const h = ref.height;
-@End(main)
+@End(refresh)
 ```
 * reference Image specifies the size of the images
 * width must be even, so it may be padded by a pixel
 
 ```
-@Add(main)
+@Add(refresh)
 	const ref_c =
 		document.createElement('canvas');
 	ref_c.width = $img_a.width =
 		$img_b.width = w;
 	ref_c.height = $img_a.height =
 		$img_b.height = h;
-@End(main)
+@End(refresh)
 ```
 * generate a hidden canvas to contain the reference image
 * it is set to the correct size
@@ -99,26 +115,26 @@
   set to their proper size
 
 ```
-@Add(main)
+@Add(refresh)
 	const ref_ctx =
 		ref_c.getContext('2d');
 	ref_ctx.drawImage($ref, 0, 0, w, h);
-@End(main)
+@End(refresh)
 ```
 * reference image is drawn in the hidden canvas
 
 ```
-@Add(main)
+@Add(refresh)
 	const ref_id =
 		ref_ctx.getImageData(0, 0, w, h);
 	const ref_d = ref_id.data;
-@End(main)
+@End(refresh)
 ```
 * the pixel array of the hidden canvas is used to generate the two
   randomized images
 
 ```
-@Add(main)
+@Add(refresh)
 	const getBlack = ctx => {
 		const id =
 			ctx_a.createImageData(1,1);
@@ -127,23 +143,22 @@
 		d[3] = 255;
 		return id;
 	};
-@End(main)
+@End(refresh)
 ```
 * create one black pixel for a canvas object
 
 ```
-@Add(main)
+@Add(refresh)
 	const ctx_a = $img_a.getContext('2d');
 	let black_a = getBlack(ctx_a);
 	const ctx_b = $img_b.getContext('2d');
 	let black_b = getBlack(ctx_b);
-@End(main)
+@End(refresh)
 ```
 * create black pixels for both canvases
 
 ```
-@Add(main)
-	console.log('start');
+@Add(refresh)
 	const gcd = (a, b) => {
 		while (b != 0) {
 			const t = a % b;
@@ -157,13 +172,10 @@
 	let m = w * h;
 	let c = m;
 	let d = Math.trunc(m/7);
-	console.log(d);
-	while (gcd(d, m) != 1) { console.log(d, m, gcd(d, m)); ++d; }
-
-	console.log(m, d);
+	while (gcd(d, m) != 1) { ++d; }
 
 	const draw = () => {
-		for (let k = 0; c > 0 && k < 100; ++k) {
+		for (let k = 0; c > 0 && k < 345; ++k) {
 			let r = (y * w + x) * 4;
 			@put(draw);
 			--c;
@@ -180,7 +192,7 @@
 	};
 	draw();
 
-@End(main)
+@End(refresh)
 ```
 * iterate over each pixel pair
 
@@ -236,6 +248,7 @@
 	<button id="overlay">Overlay</button>
 	<button
 		id="separate">Separate</button>
+	<input id="upload" type="file" />
 	</form>
 @End(body)
 ```
@@ -314,4 +327,15 @@
 		} 
 	}, true); 
 @end(mouse move)
+```
+
+```
+@Add(main) {
+	$('#upload').addEventListener('change', function () {
+		if (this.files && this.files[0]) {
+			$ref.onload = refresh;
+			$ref.src = URL.createObjectURL(this.files[0]);
+		}
+	});
+} @End(main)
 ```
